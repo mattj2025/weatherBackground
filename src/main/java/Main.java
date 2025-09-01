@@ -82,17 +82,17 @@ public class Main {
         int h = Integer.parseInt(hour);
 
         Calendar c = Calendar.getInstance();
-        c.set(1900 + Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        c.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day)); // month is zero-based
         int weekdayNum = c.get(Calendar.DAY_OF_WEEK);
 
         String weekday = switch (weekdayNum) {
-            case 5 -> "Sunday";
-            case 6 -> "Monday";
-            case 7 -> "Tuesday";
-            case 1 -> "Wednesday";
-            case 2 -> "Thursday";
-            case 3 -> "Friday";
-            case 4 -> "Saturday";
+            case Calendar.SUNDAY -> "Sunday";
+            case Calendar.MONDAY -> "Monday";
+            case Calendar.TUESDAY -> "Tuesday";
+            case Calendar.WEDNESDAY -> "Wednesday";
+            case Calendar.THURSDAY -> "Thursday";
+            case Calendar.FRIDAY -> "Friday";
+            case Calendar.SATURDAY -> "Saturday";
             default -> "Error";
         };
 
