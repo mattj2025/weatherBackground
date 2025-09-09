@@ -23,7 +23,7 @@ public class Wallpaper
     public Wallpaper() {
         image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
         g = image.createGraphics();
-        wallpaper = new File("image\\" + (new Date()).getTime() + ".png");
+        wallpaper = new File("image\\wallpaper.png");
 
         try {
             wallpaper.createNewFile();
