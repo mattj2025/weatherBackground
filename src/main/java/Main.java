@@ -52,10 +52,10 @@ public class Main {
             int day = 0;
             for (int i = 0; i < hoursArray.size(); i++) {
                 if (hour == 0)
-                    out.append(String.format("%s :  %s°F %3s%%\n", convertTime((String) hoursArray.get(i)),
+                    out.append(String.format("%s :  %5s°F %3s%%\n", convertTime((String) hoursArray.get(i)),
                             temperatureArray.get(i), precipitationArray.get(i)));
                 else
-                    out.append(String.format("%s :  %s°F %3s%%\n", convertTimeNoDate((String) hoursArray.get(i)),
+                    out.append(String.format("%s :  %5s°F %3s%%\n", convertTimeNoDate((String) hoursArray.get(i)),
                             temperatureArray.get(i), precipitationArray.get(i)));
 
                 if (hour == 23) {
