@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Wallpaper
     Graphics2D g;
     BufferedImage image;
     File wallpaper;
+    int precipitation;
 
     public Wallpaper() {
         image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
@@ -32,6 +34,10 @@ public class Wallpaper
         }
     }
 
+    public void setPrecipitation(int p) {
+        precipitation = p;
+    }
+
     public void testChangeImage() {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1920, 1080);
@@ -43,22 +49,39 @@ public class Wallpaper
     }
 
     public void update(String[] forecast) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 1920, 1080);
+
+        try {
+            Image img;
+            if (precipitation > 70) 
+                img = ImageIO.read(new File("backgrounds\\storm\\lightning.jpg"));
+            else if (precipitation > 10)
+                img = ImageIO.read(new File("backgrounds\\rain\\raindrops.jpg"));
+            else
+                img = ImageIO.read(new File("backgrounds\\sun\\sky.jpg"));
+
+            g.drawImage(img, 0, 0, null);
+        }
+        catch(IOException e) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 1920, 1080);
+        }
+
+        g.setColor(new Color(0,0,0,100));
+        g.fillRoundRect(20, 70, 1890, 660, 20, 20);
+
         g.setFont(new Font("Consolas", 0, 20));
 
         for (int i = 0; i < forecast.length; i++) 
         {
-            g.setColor(DAY_COLORS[i]);
+            g.setColor(Color.GREEN);
 
             String[] lines = forecast[i].split("\n");
             int lineHeight = g.getFontMetrics().getHeight();
 
             for (int y = 0; y < lines.length; y++)
-                g.drawString(lines[y], 50 + i * 270, 100 + y * lineHeight);
+                g.drawString(lines[y], 37 + i * 270, 100 + y * lineHeight);
         }
 
-        g.setColor(Color.BLUE);
         g.drawString("Updated: " + LocalDate.now() + "  " + LocalTime.now(), 20, 30);
 
         updateScreen();
