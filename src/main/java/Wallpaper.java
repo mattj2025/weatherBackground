@@ -5,8 +5,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -16,7 +14,6 @@ import org.apache.commons.io.FileUtils;
 
 public class Wallpaper 
 {
-    private static final Color[] DAY_COLORS = {Color.GREEN, Color.YELLOW, Color.RED, Color.GREEN, Color.YELLOW, Color.RED, Color.GREEN};
     Graphics2D g;
     BufferedImage image;
     File wallpaper;
@@ -26,6 +23,7 @@ public class Wallpaper
         image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
         g = image.createGraphics();
         wallpaper = new File("image\\wallpaper.png");
+        precipitation = 0;
 
         try {
             wallpaper.createNewFile();
@@ -64,25 +62,28 @@ public class Wallpaper
         catch(IOException e) {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 1920, 1080);
-        }
+        }        
 
         g.setColor(new Color(0,0,0,100));
-        g.fillRoundRect(20, 70, 1890, 660, 20, 20);
+        g.fillRoundRect(20, 60, 1890, 660, 70, 70);
 
-        g.setFont(new Font("Consolas", 0, 20));
+        g.setFont(new Font("Cascadia Code", 0, 20));
 
         for (int i = 0; i < forecast.length; i++) 
         {
-            g.setColor(Color.GREEN);
 
             String[] lines = forecast[i].split("\n");
             int lineHeight = g.getFontMetrics().getHeight();
 
+            if (i > 0) {
+                g.setColor(new Color(250, 250, 250, 175));
+                g.fillRoundRect(18 + i * 270, 100, 5, 600, 5, 5);
+            }
+
+            g.setColor(new Color(140, 255, 140));
             for (int y = 0; y < lines.length; y++)
                 g.drawString(lines[y], 37 + i * 270, 100 + y * lineHeight);
         }
-
-        g.drawString("Updated: " + LocalDate.now() + "  " + LocalTime.now(), 20, 30);
 
         updateScreen();
     }
