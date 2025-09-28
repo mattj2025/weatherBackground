@@ -10,3 +10,6 @@ Weather Background by MattJ2025
 - Install [Maven](https://maven.apache.org/install.html)
 
 Enjoy
+
+
+Check image\wallpaper.png for an example desktop wallpaper
