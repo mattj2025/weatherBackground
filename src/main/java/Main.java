@@ -8,6 +8,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Main {
+    
+    private static final String LATITUDE = "40.8";
+    private static final String LONGITUDE = "-96.667";
+    
     public static void main(String[] args) {
         
         System.out.println("Running");
@@ -15,8 +19,11 @@ public class Main {
         Wallpaper img = new Wallpaper();
 
         try {
-            java.net.URI uri = java.net.URI.create(
-                    "https://api.open-meteo.com/v1/forecast?latitude=40.8&longitude=-96.667&hourly=temperature_2m,precipitation_probability&current=temperature_2m,apparent_temperature,precipitation&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch");
+            String api = "https://api.open-meteo.com/v1/forecast?latitude=" + LATITUDE + "&longitude=" + LONGITUDE + "&hourly=temperature_2m,precipitation_probability&current=temperature_2m,apparent_temperature,precipitation&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch";
+
+            java.net.URI uri = java.net.URI.create(api);
+
+            
             URL url = uri.toURL();
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
